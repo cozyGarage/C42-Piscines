@@ -1,11 +1,8 @@
 #include <unistd.h>
 
-#define BOARD_SIZE 10
-#define DIAG_SIZE 19
-
 void print_board(int *board) {
     int i = 0;
-    while (i < BOARD_SIZE) {
+    while (i < 10) {
         char c = board[i++] + '0';
         write(1, &c, 1);
     }
@@ -32,9 +29,9 @@ int check_safe(int nqueen, int *board) {
 
 void place_queens(int nqueen, int *board, int *count) {
     board[nqueen] = 0;
-    while (board[nqueen] < BOARD_SIZE) {
+    while (board[nqueen] < 10) {
         if (check_safe(nqueen, board)) {
-            if (nqueen == BOARD_SIZE - 1) {
+            if (nqueen == 10 - 1) {
                 print_board(board);
                 ++(*count);
             } else {
@@ -46,18 +43,18 @@ void place_queens(int nqueen, int *board, int *count) {
 }
 
 int ten_queens_puzzle(void) {
-    int board[BOARD_SIZE];
+    int board[10];
     int nqueen = 0;
     int count = 0;
 
     place_queens(nqueen, board, &count);
     return count;
 }
-
+/*
 int main() {
     ten_queens_puzzle();
     return 0;
-}
+}*/
 /* ************************************************************************** */
 /* ************************************************************************** */
 /*
