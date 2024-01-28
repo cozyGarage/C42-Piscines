@@ -17,33 +17,38 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-int	ft_char_is_printable(char c)
+void	ft_convert_hexa(unsigned char c)
 {
-	if (c >= 32 && c <= 126)
-		return (1);
+	char	*hexabase;
+
+	hexabase = "0123456789abcdef";
+	if (c / 16 > 0)
+	{
+		ft_putchar(hexabase[c / 16]);
+		ft_putchar(hexabase[c % 16]);
+	}
 	else
-		return (0);
+	{
+		ft_putchar('0');
+		ft_putchar(hexabase[c]);
+	}
 }
 
 void	ft_putstr_non_printable(char *str)
 {
-	int		i;
-	char	*hex;
+	unsigned int	i;
 
-	hex = "0123456789abcdef";
 	i = 0;
-	while (str[i])
+	while (str[i] != '\0')
 	{
-		if (ft_char_is_printable(str[i]) == 1)
-			ft_putchar(str[i]);
-		else
+		if (str[i] < 32 || str[i] > 126)
 		{
 			ft_putchar('\\');
-			if (str[i] < 16)
-				ft_putchar('0');
-			else
-				ft_putchar(hex[str[i] / 16]);
-			ft_putchar(hex[str[i] % 16]);
+			ft_convert_hexa(str[i]);
+		}
+		else
+		{
+			ft_putchar(str[i]);
 		}
 		i++;
 	}
